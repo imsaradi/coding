@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
+	<flow name="testFlow" doc:id="37bb7070-609a-4b89-886c-09adfb5abb96" >
+		<scheduler doc:name="Scheduler" doc:id="b490d6ad-2abf-4723-82f6-1ea24d276ab8" >
+			<scheduling-strategy >
+				<fixed-frequency startDelay="3" timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="bf341acd-65ec-4d72-825b-ab0d0add0be8" message="Start - #[message]"/>
+		<set-variable value='#["Hero"]' doc:name="Set Variable" doc:id="766e9ed8-6c9f-4b8d-aeb9-75360a45a459" variableName="test"/>
+		<set-payload value='#["Nani"]' doc:name="Set Payload" doc:id="416a16ac-1dab-42af-833e-7ebbb78e8b35" />
+		<scatter-gather doc:name="Scatter-Gather" doc:id="ec55d5ca-7939-4b11-81ae-51560a54891f" >
+			<route >
+				<set-variable value='#["comedy"]' doc:name="Set Variable" doc:id="c6f6e6cd-0ca8-4b39-b647-e1d8ef36445e" variableName="test"/>
+				<set-payload value='#["Bhrami"]' doc:name="Set Payload" doc:id="854c36a9-ffce-4080-93b4-2a1ed2d01aef" />
+				<logger level="INFO" doc:name="Logger" doc:id="1b7a44b7-438e-4a1d-9d5c-a6dca41e7c2d" message="Route 1 - #[vars.tet[0] + 0]"/>
+			</route>
+			<route >
+				<set-variable value='#["Villan"]' doc:name="Set Variable" doc:id="6675c7a7-6d95-49ed-9d2f-fa0a0f07d349" variableName="test"/>
+				<set-payload value='#["SonuSood"]' doc:name="Set Payload" doc:id="411cae71-695f-4e10-b784-a57fe8461d87" />
+				<logger level="INFO" doc:name="Logger" doc:id="475b6db5-0029-420f-a7cf-8304c90bb9b9" message="Route 2 - #[vars.test]"/>
+			</route>
+			<route >
+				<set-variable value='#["Item"]' doc:name="Set Variable" doc:id="e7c8ac87-16bc-4f86-83bf-24a96f8a0153" variableName="test"/>
+				<set-payload value='#["Nagma"]' doc:name="Set Payload" doc:id="a18e9218-7a32-4ddf-a992-26307d12bd78" />
+				<logger level="INFO" doc:name="Logger" doc:id="be1fb8c6-9326-45b9-842f-96f0eaddffcd" message="Route 3 - #[vars.test]"/>
+			</route>
+		</scatter-gather>
+		<logger level="INFO" doc:name="Logger" doc:id="c78b0c52-a393-4498-9a10-37a2315cfa2a" message="End Scatter Gather - #[message]"/>
+	</flow>
+	<flow name="testFlow1" doc:id="eff9eadf-87ff-4581-8e1f-e21e62818a49" >
+		<vm:listener queueName="" doc:name="Listener" doc:id="1abd8879-93b0-445c-be79-c31ff5697910" />
+		<vm:consume doc:name="Consume" doc:id="8fa7f110-72bb-4628-acf1-770f31d6d14c" />
+	</flow>
+</mule>
